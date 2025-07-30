@@ -4,9 +4,9 @@ class Board:
         P1 = 1 # value for player 1
         P2 = 2 # value for player 2
         self.size = size
-        self.board_matrix = [[0, 0, 0],
-                             [0, 0, 0],
-                             [0, 0, 0]]
+        self.board_matrix = [[0, 0, 1],
+                             [0, 1, 0],
+                             [1, 0, 0]]
 
     def generate_board(self, board_size):
         board = [([0]*board_size)]*board_size
@@ -15,15 +15,21 @@ class Board:
 
     def check_win(self):
         win_conditions = [([1]*self.size), ([2]*self.size)]
-        for row in range(self.size):
+        for pos in range(self.size):
             #check row
-            if self.board_matrix[row] in win_conditions:
+            if self.board_matrix[pos] in win_conditions:
                 return True
             #check column
-            elif list(map(lambda x: self.board_matrix[x][row], list(range(self.size)))) in win_conditions:
+            #get list of values in column 'x' using lambda, and test if values match win conditions
+            elif list(map(lambda x: self.board_matrix[x][pos], list(range(self.size)))) in win_conditions:
                 return True
             #check diagonal
+            #get list of values on diagonal and test if they meet win conditions
             elif list(map(lambda x: self.board_matrix[x][x], list(range(self.size)))) in win_conditions:
+                return True
+            #check anti-diagonal
+            #get list of values on anti-diagonal and test if they meet win conditions
+            elif list(map(lambda x: self.board_matrix[x][self.size - 1 -x], list(range(self.size)))) in win_conditions:
                 return True
             #if this point is reached, win condition is not met
             else:
