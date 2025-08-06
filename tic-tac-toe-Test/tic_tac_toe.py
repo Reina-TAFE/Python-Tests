@@ -1,4 +1,6 @@
 from board import Board
+
+
 class TicTacToe:
     def __init__(self):
         self.board = Board(3)
@@ -19,15 +21,16 @@ class TicTacToe:
         position = (row, col)
         self.board.update_board_matrix((row, col), player)
 
-
     def play(self):
+        self.board.show_board()
         while not self.board.check_win():
             for player in self.players:
                 print(f"Player {player}'s turn!")
                 self.get_move(player)
                 self.rounds += 1
+                print()
                 self.board.show_board()
+                print()
                 if self.board.check_win():
                     print(f"Player {player} wins!")
                     quit()
-
